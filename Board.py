@@ -8,11 +8,26 @@ class Board:
 
     def add(self, ent, x, y):
 
-        assert x >= 0 and x <= 4, "x must be in range [0,4], x = " + str(x)
-        assert y >= 0 and y <= 4, "y must be in range [0,4], y = " + str(y)
+        assert x >= 1 and x <= 5, "x must be in range [1, 5], x = " + str(x)
+        assert y >= 1 and y <= 5, "y must be in range [1, 5], y = " + str(y)
 
-        self.grid[y][x] = ent
+        self.grid[y-1][x-1] = ent
         ent.set_coordinates(x, y)
+
+    def get_cell(self, x, y):
+
+        assert x >= 1 and x <= 5, "x must be in range [1,5], x = " + str(x)
+        assert y >= 1 and y <= 5, "y must be in range [1,5], y = " + str(y)
+
+        return self.grid[y-1][x-1]
+
+    def delete(self, x, y):
+
+        assert x >= 1 and x <= 5, "x must be in range [1, 5], x = " + str(x)
+        assert y >= 1 and y <= 5, "y must be in range [1, 5], y = " + str(y)
+
+        self.grid[y-1][x-1] = None
+
 
     def __str__(self):
 
