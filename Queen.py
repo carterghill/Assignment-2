@@ -39,26 +39,40 @@ class Queen:
         """
 
         moves = []
-        if self.x > 0:
-            if self.board.grid[self.y-1][self.x] is None or type(self.board.grid[self.y-1][self.x]) is Wight:
+        if self.x > 1:
+            if (self.board.get_cell(self.x-1, self.y) is None
+            or str(self.board.get_cell(self.x-1, self.y)) is " W "):
                 moves.append([self.x-1, self.y])
-            if self.y > 0 and type(self.board.grid[self.y-1][self.x-1]) is None or type(self.board.grid[self.y-1][self.x-1]) is Wight:
-                moves.append([self.x-1, self.y-1])
-            if self.y < 4 and type(self.board.grid[self.y-1][self.x+1]) is None or type(self.board.grid[self.y-1][self.x+1]) is Wight:
-                moves.append([self.x-1, self.y+1])
+            if self.y > 1:
+                if (self.board.get_cell(self.x-1, self.y-1) is None
+                or str(self.board.get_cell(self.x-1, self.y-1)) is " W "):
+                    moves.append([self.x-1, self.y-1])
+            if self.y < 5:
+                 if (type(self.board.get_cell(self.x-1, self.y+1)) is None
+                 or type(self.board.get_cell(self.x-1, self.y+1)) is Wight):
+                    moves.append([self.x-1, self.y+1])
 
-        if self.x < 4:
-            if self.board.grid[self.y+1][self.x] is None or type(self.board.grid[self.y+1][self.x]) is Wight:
+        if self.x < 5:
+            if (self.board.get_cell(self.x+1, self.y) is None
+            or str(self.board.get_cell(self.x+1, self.y)) is " W "):
                 moves.append([self.x+1, self.y])
-            if self.y > 0 and type(self.board.grid[self.y+1][self.x-1]) is None or type(self.board.grid[self.y+1][self.x-1]) is Wight:
-                moves.append([self.x+1, self.y-1])
-            if self.y < 4 and type(self.board.grid[self.y+1][self.x+1]) is None or type(self.board.grid[self.y+1][self.x+1]) is Wight:
-                moves.append([self.x+1, self.y+1])
+            if self.y > 1:
+                if (self.board.get_cell(self.x+1, self.y-1) is None
+                or str(self.board.get_cell(self.x+1, self.y-1)) is " W "):
+                    moves.append([self.x+1, self.y-1])
+            if self.y < 5:
+                if (type(self.board.get_cell(self.x+1, self.y+1)) is None
+                or type(self.board.get_cell(self.x+1, self.y+1)) is Wight):
+                    moves.append([self.x+1, self.y+1])
 
-        if self.y > 0 and type(self.board.grid[self.y][self.x-1]) is None or type(self.board.grid[self.y][self.x-1]) is Wight:
-            moves.append([self.x, self.y-1])
-        if self.y < 4 and type(self.board.grid[self.y][self.x+1]) is None or type(self.board.grid[self.y][self.x+1]) is Wight:
-            moves.append([self.x, self.y+1])
+        if self.y > 1:
+            if (self.board.get_cell(self.x, self.y-1) is None
+            or type(self.board.get_cell(self.x, self.y-1)) is Wight):
+                moves.append([self.x, self.y-1])
+        if self.y < 5:
+            if (self.board.get_cell(self.x, self.y+1) is None
+            or type(self.board.get_cell(self.x, self.y+1)) is Wight):
+                moves.append([self.x, self.y+1])
 
         return moves
 
