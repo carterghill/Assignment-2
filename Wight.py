@@ -25,5 +25,46 @@ class Wight:
         self.y = coor[1]
         self.board.add(self, self.x, self.y)
 
+    def get_moves(self):
+
+        """
+        Purpose:
+            Gets a list of coordinates that the Queen ca move to
+        Pre-Conditions:
+            :param self: a Queen on the board
+        Return:
+            :return: list of moves
+        """
+
+        moves = []
+
+        if self.x > 1:
+            print(self.board)
+            if self.board.get_cell(self.x-1, self.y) is None:
+                moves.append([self.x-1, self.y])
+            if (self.y > 0 and str(self.board.get_cell(self.x-1, self.y-1)) is " Q "
+            or str(self.board.get_cell(self.x-1, self.y-1)) is " D "):
+                moves.append([self.x-1, self.y-1])
+            if (self.y < 4 and str(self.board.get_cell(self.x-1, self.y+1)) is " Q "
+            or str(self.board.get_cell(self.x-1, self.y+1)) is " D "):
+                moves.append([self.x-1, self.y+1])
+
+        if self.x < 5:
+            if self.board.get_cell(self.x+1, self.y) is None:
+                moves.append([self.x+1, self.y])
+            if (self.y > 0 and str(self.board.get_cell(self.x+1, self.y-1)) is " Q "
+            or str(self.board.get_cell(self.x+1, self.y-1)) is " D "):
+                moves.append([self.x+1, self.y-1])
+            if (self.y < 4 and str(self.board.get_cell(self.x-1, self.y+1)) is " Q "
+            or str(self.board.get_cell(self.x+1, self.y+1)) is " D "):
+                moves.append([self.x+1, self.y+1])
+
+        if (self.y > 1 and self.board.get_cell(self.x, self.y-1) is None):
+            moves.append([self.x, self.y-1])
+        if self.y < 5 and self.board.get_cell(self.x, self.y+1) is None:
+            moves.append([self.x, self.y+1])
+
+        return moves
+
     def __str__(self):
         return " W "
