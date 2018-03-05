@@ -1,6 +1,4 @@
 from Board import Board
-from Wight import Wight
-from Dragon import Dragon
 
 class Queen:
 
@@ -39,6 +37,7 @@ class Queen:
         """
 
         moves = []
+        # If x is greater than 1, check possible moves on left side
         if self.x > 1:
             if (self.board.get_cell(self.x-1, self.y) is None
             or str(self.board.get_cell(self.x-1, self.y)) is " W "):
@@ -48,10 +47,11 @@ class Queen:
                 or str(self.board.get_cell(self.x-1, self.y-1)) is " W "):
                     moves.append([self.x-1, self.y-1])
             if self.y < 5:
-                 if (type(self.board.get_cell(self.x-1, self.y+1)) is None
-                 or type(self.board.get_cell(self.x-1, self.y+1)) is Wight):
+                 if (self.board.get_cell(self.x-1, self.y+1) is None
+                 or str(self.board.get_cell(self.x-1, self.y+1)) is " W "):
                     moves.append([self.x-1, self.y+1])
 
+        # If x is less than 5, check possible moves on the right side
         if self.x < 5:
             if (self.board.get_cell(self.x+1, self.y) is None
             or str(self.board.get_cell(self.x+1, self.y)) is " W "):
@@ -61,17 +61,18 @@ class Queen:
                 or str(self.board.get_cell(self.x+1, self.y-1)) is " W "):
                     moves.append([self.x+1, self.y-1])
             if self.y < 5:
-                if (type(self.board.get_cell(self.x+1, self.y+1)) is None
-                or type(self.board.get_cell(self.x+1, self.y+1)) is Wight):
+                if (self.board.get_cell(self.x+1, self.y+1) is None
+                or str(self.board.get_cell(self.x+1, self.y+1)) is " W "):
                     moves.append([self.x+1, self.y+1])
 
+        # Check if you can move forward or backward
         if self.y > 1:
             if (self.board.get_cell(self.x, self.y-1) is None
-            or type(self.board.get_cell(self.x, self.y-1)) is Wight):
+            or str(self.board.get_cell(self.x, self.y-1)) is " W "):
                 moves.append([self.x, self.y-1])
         if self.y < 5:
             if (self.board.get_cell(self.x, self.y+1) is None
-            or type(self.board.get_cell(self.x, self.y+1)) is Wight):
+            or str(self.board.get_cell(self.x, self.y+1)) is " W "):
                 moves.append([self.x, self.y+1])
 
         return moves
