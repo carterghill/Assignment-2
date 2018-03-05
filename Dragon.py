@@ -18,5 +18,12 @@ class Dragon:
     def get_coordinates(self):
         return self.x, self.y
 
+    def move(self, coor):
+
+        self.board.delete(self.x, self.y)
+        self.x = coor[0]
+        self.y = coor[1]
+        self.board.add(self, self.x, self.y)
+
     def __str__(self):
         return " D "
