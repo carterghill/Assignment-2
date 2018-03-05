@@ -41,24 +41,23 @@ class Wight:
         if self.x > 1:
             if self.board.get_cell(self.x-1, self.y) is None:
                 moves.append([self.x-1, self.y])
-            if self.y > 0:
+            if self.y > 1:
                 if (str(self.board.get_cell(self.x-1, self.y-1)) == " Q "
                 or str(self.board.get_cell(self.x-1, self.y-1)) == " D "):
                     moves.append([self.x-1, self.y-1])
-            if self.y < 4:
+            if self.y < 5:
                 if (str(self.board.get_cell(self.x-1, self.y+1)) == " Q "
                 or str(self.board.get_cell(self.x-1, self.y+1)) == " D "):
                     moves.append([self.x-1, self.y+1])
 
         if self.x < 5:
-            print(str(self.board.get_cell(self.x+1, self.y-1)))
             if self.board.get_cell(self.x+1, self.y) is None:
                 moves.append([self.x+1, self.y])
-            if self.y > 0:
+            if self.y > 1:
                 if (str(self.board.get_cell(self.x+1, self.y-1)) == " Q "
                 or str(self.board.get_cell(self.x+1, self.y-1)) == " D "):
                     moves.append([self.x+1, self.y-1])
-            if self.y < 4:
+            if self.y < 5:
                 if (str(self.board.get_cell(self.x+1, self.y+1)) == " Q "
                 or str(self.board.get_cell(self.x+1, self.y+1)) == " D "):
                     moves.append([self.x+1, self.y+1])
