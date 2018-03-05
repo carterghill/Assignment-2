@@ -39,7 +39,6 @@ class Wight:
         moves = []
 
         if self.x > 1:
-            print(self.board)
             if self.board.get_cell(self.x-1, self.y) is None:
                 moves.append([self.x-1, self.y])
             if (self.y > 0 and str(self.board.get_cell(self.x-1, self.y-1)) is " Q "
