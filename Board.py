@@ -26,7 +26,7 @@ class Board:
         assert x >= 1 and x <= 5, "x must be in range [1, 5], x = " + str(x)
         assert y >= 1 and y <= 5, "y must be in range [1, 5], y = " + str(y)
 
-        self.grid[y-1][x-1] = None
+        self.grid[abs(y-5)][x-1] = None
 
 
     def __str__(self):
