@@ -20,6 +20,11 @@ class Dragon:
 
     def move(self, coor):
 
+        x = coor[0]
+        y = coor[1]
+        assert x >= 1 and x <= 5, "x must be in range [1, 5], x = " + str(x)
+        assert y >= 1 and y <= 5, "y must be in range [1, 5], y = " + str(y)
+
         self.board.delete(self.x, self.y)
         self.x = coor[0]
         self.y = coor[1]
