@@ -19,25 +19,18 @@ class Game:
         Wight(self.board, 5, 1)
 
         self.player = 2             # Player whose turn it is
-        self.gameover = False       # Game over flag
 
     def get_pieces(self):
 
         pieces = []
-        queen_found = False         # Used for game over detection
 
         for i in range(1, 6):
             for j in range(1, 6):
                 p = self.board.get_cell(i, j)
-                if type(p) is Queen:
-                    queen_found = True
                 if self.player == 2 and type(p) is Wight:
                     pieces.append(p)
                 elif self.player == 1 and (type(p) is Dragon or type(p) is Queen):
                     pieces.append(p)
-
-        if not queen_found:
-            self.gameover = True
 
         return pieces
 
@@ -79,12 +72,30 @@ class Game:
         else:
             self.player = 1
 
+    def victory(self):
+
+        for i in range(1, 6):
+            for j in range(1, 6):
+                if str(self.board.get_cell(i, j)) == " Q ":
+                    if j == 1:
+                        return 1
+                    else:
+                        return None
+
+        return 2
+
     def play(self):
 
         while True:
 
-            if not self.board.has_queen():
-                print("\n/////////////////\n Player 2 Wins!! \n/////////////////\n")
+            if self.victory() == 1:
+                print(self.board)
+                print("\n\n/////////////////\n Player 1 Wins!! \n/////////////////\n")
+                break
+
+            if self.victory() == 2:
+                print(self.board)
+                print("\n\n/////////////////\n Player 2 Wins!! \n/////////////////\n")
                 break
 
             self.select_move()
