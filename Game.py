@@ -2,10 +2,12 @@ from Queen import Queen
 from Wight import Wight
 from Dragon import Dragon
 from Board import Board
+from Player1AI import Player1AI
+from Player2AI import Player2AI
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, player1_is_ai=True, player2_is_ai=True):
 
         self.board = Board()        # The game board
         Queen(self.board, 3, 5)     # Place Queen at top center
@@ -19,6 +21,16 @@ class Game:
         Wight(self.board, 5, 1)
 
         self.player = 2             # Player whose turn it is
+
+        if player1_is_ai:
+            self.ai1 = Player1AI(game=self)
+        else:
+            self.ai1 = None
+
+        if player2_is_ai:
+            self.ai2 = Player2AI(game=self)
+        else:
+            self.ai2 = None
 
     def get_pieces(self):
 
@@ -98,7 +110,16 @@ class Game:
                 print("\n\n/////////////////\n Player 2 Wins!! \n/////////////////\n")
                 break
 
-            self.select_move()
+            if self.ai2 is not None and self.player == 2:
+                print(self.board)
+                self.ai2.move()
+
+            if self.ai1 is not None and self.player == 1:
+                print(self.board)
+                self.ai1.move()
+
+            if self.ai1 is None or self.ai2 is None:
+                self.select_move()
 
     def __str__(self):
         s = "Player " + str(self.player) + "\'s turn.\n\n"
