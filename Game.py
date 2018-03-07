@@ -64,12 +64,30 @@ class Game:
 
         if move is None:
             print("\nMoves for" + str(piece) + "at " + str(piece.get_coordinates()))
-            for m in moves:
-                print("1. " + str(m))
+            for i in range(len(moves)):
+                print(str(i+1) + ". " + str(moves[i]))
 
             move = int(input("\nSelect move by #: "))
 
+        assert move <= len(moves), "Seleced " + str(x) + " but only have " + str(len(moves))
+        assert move > 0, "Move # must be higher than 0"
+
         piece.move(moves[move-1])
+
+        if self.player == 1:
+            self.player = 2
+        else:
+            self.player = 1
+
+    def play(self):
+
+        while True:
+
+            if not self.board.has_queen():
+                print("\n/////////////////\n Player 2 Wins!! \n/////////////////\n")
+                break
+
+            self.select_move()
 
     def __str__(self):
         s = "Player " + str(self.player) + "\'s turn.\n\n"

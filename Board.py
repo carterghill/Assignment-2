@@ -28,6 +28,17 @@ class Board:
 
         self.grid[abs(y-5)][x-1] = None
 
+    def has_queen(self):
+
+        q = False
+
+        for i in range(1, 6):
+            for j in range(1, 6):
+                if str(self.get_cell(i, j)) == " Q ":
+                    q = True
+
+        return q
+
 
     def __str__(self):
 
