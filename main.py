@@ -1,4 +1,5 @@
 from Game import Game
 
 game = Game()
-print(game.select_piece())
+game.select_move()
+print(game)
