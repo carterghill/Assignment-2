@@ -6,6 +6,19 @@ class Board:
         # Each cell will be a list of characters occupying it
         self.grid = [[None for x in range(5)] for y in range(5)]
 
+    def copy(self):
+
+        b = Board()
+
+        for i in range(5):
+            for j in range(5):
+                if (str(self.grid[i][j]) == " W "
+                or str(self.grid[i][j]) == " Q "
+                or str(self.grid[i][j]) == " D "):
+                    b.grid[i][j] = self.grid[i][j].copy(b)
+
+        return b
+
     def add(self, ent, x, y):
 
         assert x >= 1 and x <= 5, "x must be in range [1, 5], x = " + str(x)

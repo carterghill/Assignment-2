@@ -23,7 +23,7 @@ class Game:
         self.player = 2             # Player whose turn it is
 
         if player1_is_ai:
-            self.ai1 = Player1AI(game=self)
+            self.ai1 = Player1AI()
         else:
             self.ai1 = None
 
@@ -32,16 +32,29 @@ class Game:
         else:
             self.ai2 = None
 
-    def get_pieces(self):
+    def copy(self):
+
+        g = Game()
+        g.board = self.board.copy()
+        g.player = int(self.player)
+        g.ai1 = self.ai1
+        g.ai2 = self.ai2
+
+        return g
+
+    def get_pieces(self, player=None):
+
+        if player == None:
+            player = self.player
 
         pieces = []
 
         for i in range(1, 6):
             for j in range(1, 6):
                 p = self.board.get_cell(i, j)
-                if self.player == 2 and type(p) is Wight:
+                if player == 2 and type(p) is Wight:
                     pieces.append(p)
-                elif self.player == 1 and (type(p) is Dragon or type(p) is Queen):
+                elif player == 1 and (type(p) is Dragon or type(p) is Queen):
                     pieces.append(p)
 
         return pieces
@@ -57,7 +70,7 @@ class Game:
 
             x = int(input("\nSelect piece by #: "))
 
-        assert x <= len(pieces), "Seleced " + str(x) + " but only have " + str(len(pieces))
+        assert x <= len(pieces), "Seleced piece # " + str(x) + " but only have " + str(len(pieces))
         assert x > 0, "Piece # must be higher than 0"
 
         return pieces[x-1]
@@ -116,11 +129,27 @@ class Game:
 
             if self.ai1 is not None and self.player == 1:
                 print(self.board)
-                self.ai1.move()
+                print(self.ai1)
+                print(self.ai2)
+                self = self.ai1.move(self)
+                self.player = 2
+
+
 
             if self.ai1 is None or self.ai2 is None:
+
                 self.select_move()
 
     def __str__(self):
         s = "Player " + str(self.player) + "\'s turn.\n\n"
         return (s + str(self.board))
+
+"""
+g1 = Game()
+g1.select_move(1, 1)
+print(g1)
+
+g2 = g1.copy()
+g2.select_move(1, 1)
+print(g1)
+print(g2)"""

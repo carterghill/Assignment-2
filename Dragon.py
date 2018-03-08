@@ -11,6 +11,10 @@ class Dragon:
         self.board = board
         board.add(self, x, y)
 
+    def copy(self, board):
+
+        return Dragon(board, int(self.x), int(self.y))
+
     def set_coordinates(self, x, y):
         self.x = x
         self.y = y
