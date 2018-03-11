@@ -33,4 +33,6 @@ else:
         ai2 = True
 
 game = Game(ai1, ai2)
+print(int(game))
+print(game.evaluate())
 game.play()

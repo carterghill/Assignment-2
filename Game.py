@@ -133,7 +133,32 @@ class Game:
         for p in pieces_2:
             p2_score = p2_score + p.y
 
+        if self.victory() == 1:
+            p1_score = 999999
+        elif self.victory() == 2:
+            p2_score = 999999
+
+        # print(p1_score - p2_score)
         return p1_score - p2_score
+
+    def successor(self):
+
+        pieces = self.get_pieces()
+        games = []
+
+        for p in pieces:
+            moves = p.get_moves()
+            for move in moves:
+                g = self.copy()
+                g_piece = g.board.get_cell(p.x, p.y)
+                g_piece.move(move)
+                if g.player == 2:
+                    g.player = 1
+                else:
+                    g.player = 2
+                games.append(g)
+
+        return games
 
     def play(self):
 
@@ -151,11 +176,12 @@ class Game:
 
             if self.ai2 is not None and self.player == 2:
                 print(self.board)
-                self.ai2.move()
+                self = Player1AI.move(self, 2, 3)
+                self.player = 1
 
             if self.ai1 is not None and self.player == 1:
                 print(self.board)
-                self = Player1AI.move(self, 3)
+                self = Player1AI.move(self, 1, 3)
                 self.player = 2
 
 
@@ -167,6 +193,15 @@ class Game:
     def __str__(self):
         s = "Player " + str(self.player) + "\'s turn.\n\n"
         return (s + str(self.board))
+
+    def __int__(self):
+        return self.evaluate()
+
+    def __lt__(self, other):
+        return self.evaluate() < other.evaluate()
+
+    def __gt__(self, other):
+        return self.evaluate() > other.evaluate()
 
 """
 g1 = Game()

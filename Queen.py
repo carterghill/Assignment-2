@@ -34,6 +34,10 @@ class Queen:
         self.y = coor[1]
         self.board.add(self, self.x, self.y)
 
+    def evaluate(self):
+        print("hi")
+
+
     def get_moves(self):
 
         """
