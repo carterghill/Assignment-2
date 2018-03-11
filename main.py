@@ -14,6 +14,7 @@ if len(sys.argv) > 1:
 else:
 
     print("\nAvailable game modes:\n")
+
     print(" 1. Human vs Human")
     print(" 2. AI vs Human")
     print(" 3. Human vs AI")

@@ -9,6 +9,16 @@ class Game:
 
     def __init__(self, player1_is_ai=True, player2_is_ai=True):
 
+        """
+        Purpose:
+            Creates a game instance with a board and all the pieces
+        Pre-Conditions:
+            :param player1_is_ai: Whether or not player 1 is an AI
+            :param player2_is_ai: Whether or not player 2 is an AI
+        Return:
+            :return: list of moves
+        """
+
         self.board = Board()        # The game board
         Queen(self.board, 3, 5)     # Place Queen at top center
         Dragon(self.board, 2, 4)    # Three Dragons in front of the queen
@@ -21,6 +31,7 @@ class Game:
         Wight(self.board, 5, 1)
 
         self.player = 2             # Player whose turn it is
+        self.id = 1
 
         if player1_is_ai:
             self.ai1 = Player1AI()
@@ -28,7 +39,7 @@ class Game:
             self.ai1 = None
 
         if player2_is_ai:
-            self.ai2 = Player2AI(game=self)
+            self.ai2 = Player2AI()
         else:
             self.ai2 = None
 
@@ -70,7 +81,7 @@ class Game:
 
             x = int(input("\nSelect piece by #: "))
 
-        assert x <= len(pieces), "Seleced piece # " + str(x) + " but only have " + str(len(pieces))
+        assert x <= len(pieces), "Selected piece # " + str(x) + " but only have " + str(len(pieces))
         assert x > 0, "Piece # must be higher than 0"
 
         return pieces[x-1]
@@ -87,7 +98,7 @@ class Game:
 
             move = int(input("\nSelect move by #: "))
 
-        assert move <= len(moves), "Seleced " + str(x) + " but only have " + str(len(moves))
+        assert move <= len(moves), "Seleced " + str(move) + " but only have " + str(len(moves))
         assert move > 0, "Move # must be higher than 0"
 
         piece.move(moves[move-1])
@@ -109,6 +120,21 @@ class Game:
 
         return 2
 
+    def evaluate(self):
+
+        pieces_1 = self.get_pieces(1)
+        pieces_2 = self.get_pieces(2)
+
+        p1_score = 0
+        p2_score = 0
+
+        for p in pieces_1:
+            p1_score = p1_score + abs(p.y-6)
+        for p in pieces_2:
+            p2_score = p2_score + p.y
+
+        return p1_score - p2_score
+
     def play(self):
 
         while True:
@@ -129,9 +155,7 @@ class Game:
 
             if self.ai1 is not None and self.player == 1:
                 print(self.board)
-                print(self.ai1)
-                print(self.ai2)
-                self = self.ai1.move(self)
+                self = Player1AI.move(self, 3)
                 self.player = 2
 
 
