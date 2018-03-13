@@ -24,7 +24,6 @@ class Wight:
             for j in range(1, 6):
                 p = self.board.get_cell(i, j)
                 if str(p) == " Q ":
-                    #print(i)
                     x = i
                     y = j
 
