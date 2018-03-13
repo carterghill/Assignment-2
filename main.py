@@ -1,6 +1,5 @@
 from Game import Game
 import sys
-import numpy as np
 
 ai1 = False
 ai2 = False
@@ -32,10 +31,6 @@ else:
     elif x == 4:
         ai1 = True
         ai2 = True
-x = [1,2,3]
-print(x)
-x = np.array(x)
-print(x)
 
 game = Game(ai1, ai2)
 #print(int(game))

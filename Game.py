@@ -2,8 +2,7 @@ from Queen import Queen
 from Wight import Wight
 from Dragon import Dragon
 from Board import Board
-from Player1AI import Player1AI
-from Player2AI import Player2AI
+from AI import AI
 
 class Game:
 
@@ -35,12 +34,12 @@ class Game:
         self.id = 1
 
         if player1_is_ai:
-            self.ai1 = Player1AI()
+            self.ai1 = AI()
         else:
             self.ai1 = None
 
         if player2_is_ai:
-            self.ai2 = Player2AI()
+            self.ai2 = AI()
         else:
             self.ai2 = None
 
@@ -177,18 +176,15 @@ class Game:
 
             if self.ai2 is not None and self.player == 2:
                 print(self.board)
-                self = Player1AI.minimax(4, self, 2)
+                self = AI.move(3, self, 2)
                 self.player = 1
 
             if self.ai1 is not None and self.player == 1:
                 print(self.board)
-                self = Player1AI.minimax(4, self, 1)
+                self = AI.move(3, self, 1)
                 self.player = 2
 
-
-
             if self.ai1 is None or self.ai2 is None:
-
                 self.select_move()
 
     def __str__(self):
