@@ -20,6 +20,7 @@ class Game:
         """
 
         self.board = Board()        # The game board
+        self.parent = None          # The previous board state
         Queen(self.board, 3, 5)     # Place Queen at top center
         Dragon(self.board, 2, 4)    # Three Dragons in front of the queen
         Dragon(self.board, 3, 4)
@@ -176,12 +177,15 @@ class Game:
 
             if self.ai2 is not None and self.player == 2:
                 print(self.board)
-                self = Player1AI.move(self, 2, 3)
+                #self = Player1AI.move(self, 2, 3)
+                self = Player1AI.minimax(3, self, 2)
                 self.player = 1
 
             if self.ai1 is not None and self.player == 1:
                 print(self.board)
-                self = Player1AI.move(self, 1, 3)
+                #self = Player1AI.move(self, 1, 3)
+                #self.prev = self.copy()
+                self = Player1AI.minimax(3, self, 1)
                 self.player = 2
 
 
