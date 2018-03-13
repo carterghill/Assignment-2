@@ -72,7 +72,6 @@ class Player1AI:
                 return bestGame
 
         best = getBest(depth, game, player)
-        print(best)
         while best.parent is not None:
             if best.parent == game or best == game:
                 return best

@@ -34,6 +34,9 @@ class Dragon:
         self.y = coor[1]
         self.board.add(self, self.x, self.y)
 
+    def evaluate(self):
+        return abs(self.y-6)*2
+
     def get_moves(self):
 
         """

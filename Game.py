@@ -130,7 +130,7 @@ class Game:
         p2_score = 0
 
         for p in pieces_1:
-            p1_score = p1_score + abs(p.y-6)
+            p1_score = p1_score + p.evaluate()
         for p in pieces_2:
             p2_score = p2_score + p.y
 
@@ -177,15 +177,12 @@ class Game:
 
             if self.ai2 is not None and self.player == 2:
                 print(self.board)
-                #self = Player1AI.move(self, 2, 3)
-                self = Player1AI.minimax(3, self, 2)
+                self = Player1AI.minimax(4, self, 2)
                 self.player = 1
 
             if self.ai1 is not None and self.player == 1:
                 print(self.board)
-                #self = Player1AI.move(self, 1, 3)
-                #self.prev = self.copy()
-                self = Player1AI.minimax(3, self, 1)
+                self = Player1AI.minimax(4, self, 1)
                 self.player = 2
 
 

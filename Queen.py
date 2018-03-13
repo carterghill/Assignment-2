@@ -35,7 +35,7 @@ class Queen:
         self.board.add(self, self.x, self.y)
 
     def evaluate(self):
-        print("hi")
+        return abs(self.y-6)*5
 
 
     def get_moves(self):
