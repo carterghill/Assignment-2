@@ -132,7 +132,7 @@ class Game:
         for p in pieces_1:
             p1_score = p1_score + p.evaluate()
         for p in pieces_2:
-            p2_score = p2_score + p.y
+            p2_score = p2_score + p.evaluate()
 
         if self.victory() == 1:
             p1_score = 999999

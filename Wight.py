@@ -15,6 +15,26 @@ class Wight:
 
         return Wight(board, int(self.x), int(self.y))
 
+    def evaluate(self):
+
+        x = 1
+        y = 1
+
+        for i in range(1, 6):
+            for j in range(1, 6):
+                p = self.board.get_cell(i, j)
+                if str(p) == " Q ":
+                    #print(i)
+                    x = i
+                    y = j
+
+        x = abs(self.x - x)
+        y = abs(self.y - y)
+
+        #print(x+y)
+
+        return (self.y - (x+y)) * 2
+
     def set_coordinates(self, x, y):
         self.x = x
         self.y = y
