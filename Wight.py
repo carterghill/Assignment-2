@@ -32,7 +32,7 @@ class Wight:
 
         #print(x+y)
 
-        return (self.y - (x+y)) * 2
+        return (self.y+8 - (x+y))
 
     def set_coordinates(self, x, y):
         self.x = x

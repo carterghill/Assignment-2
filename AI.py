@@ -2,7 +2,7 @@ class AI:
 
     def move(depth, game, player):
 
-        def minimax(depth, game, player):
+        def minimax(depth, game, player, alpha=None, beta=None):
 
             if depth == 0 or len(game.successor()) == 0:
                 #print(game.evaluate())
@@ -14,8 +14,13 @@ class AI:
                 bestGame = games[0]
                 for g in games:
                     g.parent = game
-                    bestGame = max(bestGame, minimax(depth - 1, g, 2))
-                    #game.undo();
+                    bestGame = max(bestGame, minimax(depth - 1, g, 2, alpha, beta))
+                    if alpha == None:
+                        alpha = bestGame
+                    alpha = max(alpha, bestGame);
+                    if beta is not None:
+                        if beta <= alpha:
+                            return bestGame
 
                 return bestGame
             else:
@@ -23,7 +28,13 @@ class AI:
                 for g in games:
                     g.parent = game
                     bestGame = min(bestGame, minimax(depth - 1, g, 1))
-                    #game.undo()
+                    if beta==None:
+                        beta = bestGame
+                    else:
+                        beta = min(beta, bestGame);
+                        if alpha is not None:
+                            if beta <= alpha:
+                                return bestGame
 
                 return bestGame
 

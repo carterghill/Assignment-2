@@ -200,6 +200,11 @@ class Game:
     def __gt__(self, other):
         return self.evaluate() > other.evaluate()
 
+    def __le__(self, other):
+        return self.evaluate() <= other.evaluate()
+
+    def __ge__(self, other):
+        return self.evaluate() >= other.evaluate()
 """
 g1 = Game()
 g1.select_move(1, 1)

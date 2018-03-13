@@ -7,3 +7,8 @@ __pycache__/Player1AI.cpython-36.pyc
 __pycache__/Player2AI.cpython-36.pyc
 .ropeproject/config.py
 __pycache__/AI.cpython-36.pyc
+Wight.pyc
+Queen.pyc
+Dragon.pyc
+Board.pyc
+AI.pyc
