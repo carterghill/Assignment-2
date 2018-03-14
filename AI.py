@@ -17,24 +17,25 @@ class AI:
                     bestGame = max(bestGame, minimax(depth - 1, g, 2, alpha, beta))
                     if alpha == None:
                         alpha = bestGame
-                    alpha = max(alpha, bestGame);
+
                     if beta is not None:
-                        if beta <= alpha:
+                        if beta <= game:
                             return bestGame
+                    alpha = max(alpha, bestGame)
 
                 return bestGame
             else:
                 bestGame = games[0]
                 for g in games:
                     g.parent = game
-                    bestGame = min(bestGame, minimax(depth - 1, g, 1))
+                    bestGame = min(bestGame, minimax(depth - 1, g, 1, alpha, beta))
                     if beta==None:
                         beta = bestGame
                     else:
-                        beta = min(beta, bestGame);
                         if alpha is not None:
-                            if beta <= alpha:
+                            if game <= alpha:
                                 return bestGame
+                        beta = min(beta, bestGame)
 
                 return bestGame
 
