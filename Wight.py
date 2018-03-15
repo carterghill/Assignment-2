@@ -34,7 +34,7 @@ class Wight:
         dis = x + y
 
         # Value will be highest if you're distance of 2 from Queen
-        return (self.y+8 - abs(dis-2))
+        return (self.y+8 - abs(dis-2))*2
 
     def set_coordinates(self, x, y):
         self.x = x

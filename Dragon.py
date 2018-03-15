@@ -35,7 +35,7 @@ class Dragon:
         self.board.add(self, self.x, self.y)
 
     def evaluate(self):
-        return abs(self.y-6)*2
+        return 5 + abs(self.y-6)*2
 
     def get_moves(self):
 

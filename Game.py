@@ -161,6 +161,7 @@ class Game:
         return games
 
     def play(self):
+        global searchList
 
         while True:
 
@@ -186,6 +187,9 @@ class Game:
 
             if self.ai1 is None or self.ai2 is None:
                 self.select_move()
+
+        if len(AI.searchList) > 0:
+            print("Average number of nodes searched: " + str((sum(AI.searchList)/len(AI.searchList))))
 
     def __str__(self):
         s = "Player " + str(self.player) + "\'s turn.\n\n"

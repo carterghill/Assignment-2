@@ -1,7 +1,15 @@
+import time
+
+searchNodes = 0
+
 class AI:
+
+    searchList = []
+    timeList = []
 
     @staticmethod
     def move(depth, game, player):
+        global searchNodes, searchList
 
         """
         Purpose:
@@ -15,9 +23,11 @@ class AI:
         """
 
         def minimax(depth, game, player, alpha=None, beta=None):
+            global searchNodes
 
             # If at the bottom of the tree, or the game state has no successors
             if depth == 0 or len(game.successor()) == 0:
+                searchNodes = searchNodes + 1
                 return game
 
             games = game.successor()
@@ -58,7 +68,15 @@ class AI:
 
         # Minimax returns the resulting games state. Recursively go back to find
         # the parent immediately after the current game state
+        start = time.time()
         best = minimax(depth, game, player)
+        end = time.time()
+        t = end - start
+        print("Nodes searched: " + str(searchNodes))
+        print("Time taken: " + str(t))
+        AI.searchList.append(searchNodes)
+        AI.timeList.append(t)
+        searchNodes = 0
         while best.parent is not None:
             if best.parent == game or best == game:
                 return best
