@@ -1,3 +1,10 @@
+##################################
+# By  : Carter Hill & Bryce Keeler
+# NSID: cgh418      & bpk802
+# Date: March 14, 2018
+# For : Assignment#2 - CMPT 317
+##################################
+
 import time
 
 searchNodes = 0
@@ -6,6 +13,8 @@ class AI:
 
     searchList = []
     timeList = []
+    searchListWithoutAlpha = []
+    timeListWithoutAlpha = []
 
     @staticmethod
     def move(depth, game, player):
@@ -21,6 +30,35 @@ class AI:
         Return:
             :return: The game state with the decided move enacted on it
         """
+
+        def minimaxWithoutAlpha(depth, game, player):
+            global searchNodes
+
+            # If at the bottom of the tree, or the game state has no successors
+            if depth == 0 or len(game.successor()) == 0:
+                searchNodes = searchNodes + 1
+                return game
+
+            games = game.successor()
+
+            if player == 1:
+                bestGame = games[0]
+
+                # Do minimax on every successor
+                for g in games:
+                    g.parent = game
+                    bestGame = max(bestGame, minimax(depth - 1, g, 2))
+
+                return bestGame
+            else:
+                bestGame = games[0]
+
+                # Looking for the min since it's player 2
+                for g in games:
+                    g.parent = game
+                    bestGame = min(bestGame, minimax(depth - 1, g, 1))
+
+                return bestGame
 
         def minimax(depth, game, player, alpha=None, beta=None):
             global searchNodes
@@ -68,6 +106,17 @@ class AI:
 
         # Minimax returns the resulting games state. Recursively go back to find
         # the parent immediately after the current game state
+
+        start = time.time()
+        best = minimaxWithoutAlpha(depth, game, player)
+        end = time.time()
+        t = end - start
+        print("Nodes searched without alpha: " + str(searchNodes))
+        print("Time taken without alpha:  " + str(t))
+        AI.searchListWithoutAlpha.append(searchNodes)
+        AI.timeListWithoutAlpha.append(t)
+        searchNodes = 0
+
         start = time.time()
         best = minimax(depth, game, player)
         end = time.time()
@@ -77,6 +126,7 @@ class AI:
         AI.searchList.append(searchNodes)
         AI.timeList.append(t)
         searchNodes = 0
+
         while best.parent is not None:
             if best.parent == game or best == game:
                 return best

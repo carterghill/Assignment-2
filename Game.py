@@ -1,3 +1,10 @@
+##################################
+# By  : Carter Hill & Bryce Keeler
+# NSID: cgh418      & bpk802
+# Date: March 14, 2018
+# For : Assignment#2 - CMPT 317
+##################################
+
 from Queen import Queen
 from Wight import Wight
 from Dragon import Dragon
@@ -18,6 +25,7 @@ class Game:
             :return: A new game state
         """
 
+		# Initializing the starting game board
         self.board = Board()        # The game board
         self.parent = None          # The previous board state
         Queen(self.board, 3, 5)     # Place Queen at top center
@@ -31,8 +39,8 @@ class Game:
         Wight(self.board, 5, 1)
 
         self.player = 2             # Player whose turn it is
-        self.id = 1
 
+		#Checking whether the game is in AI mode or not.
         if player1_is_ai:
             self.ai1 = AI()
         else:
@@ -44,6 +52,14 @@ class Game:
             self.ai2 = None
 
     def copy(self):
+        """
+        Purpose:
+            Makes a copy of the current game state
+        Pre-Conditions:
+            N/A
+        Return:
+            :return: A copy of the current game state, self
+        """
 
         g = Game()
         g.board = self.board.copy()
@@ -54,12 +70,21 @@ class Game:
         return g
 
     def get_pieces(self, player=None):
+        """
+        Purpose:
+			makes a list of all the pieces available for a particular player.
+        Pre-Conditions:
+            :param player: Chooses the player whose pieces must be returned. (i.e. player 1 gets back Queen and Dragons, 2 gets Wights)
+        Return:
+            :return: A list containing all the pieces available for a "player"
+        """
 
         if player == None:
             player = self.player
 
         pieces = []
 
+		# Looping through the board and appending pieces to the list which have the correct type.
         for i in range(1, 6):
             for j in range(1, 6):
                 p = self.board.get_cell(i, j)
@@ -71,7 +96,19 @@ class Game:
         return pieces
 
     def select_piece(self, x=None):
+        """
+        Purpose:
+            Finds and outputs all of the pieces available to move for a player to the command line.
+			The player can then select which piece among these to return.
+        Pre-Conditions:
+            :param x: Index of the piece to be chosen. This parameter is slightly unecessary,
+					  as the function is never used from a place where x might be preemptively
+					  known.
+        Return:
+            :return: The piece which was selected.
+        """
 
+		# Finding the available pieces available to the current player.
         pieces = self.get_pieces()
 
         if x is None:
@@ -87,7 +124,15 @@ class Game:
         return pieces[x-1]
 
     def select_move(self, piece=None, move=None):
-
+        """
+        Purpose:
+			Shows the current player the moves available for a
+        Pre-Conditions:
+            :param piece: The piece chosen by the player (returned by the select_piece function)
+            :param  move: Index of the chosen move. This parameter is slightly unecessary.
+        Return:
+            :return: A new game state
+        """
         piece = self.select_piece(piece)
         moves = piece.get_moves()
 
@@ -103,13 +148,21 @@ class Game:
 
         piece.move(moves[move-1])
 
+		# Toggles the active player after a move has been made
         if self.player == 1:
             self.player = 2
         else:
             self.player = 1
 
     def victory(self):
-
+        """
+        Purpose:
+            Asseses whether the current game state is a victory state for one of the players
+        Pre-Conditions:
+			N/A
+        Return:
+            :return: Returns 1 if player one has won, returns 2 if palyer 2 has won, returns none if neither has won.
+        """
         for i in range(1, 6):
             for j in range(1, 6):
                 if str(self.board.get_cell(i, j)) == " Q ":
@@ -121,31 +174,50 @@ class Game:
         return 2
 
     def evaluate(self):
-
+        """
+        Purpose:
+			Evaluates the current game state, and returns a utility value based on this.
+        Pre-Conditions:
+            N/A
+        Return:
+            :return: An integer utility value assesing the game state.
+        """
         pieces_1 = self.get_pieces(1)
         pieces_2 = self.get_pieces(2)
 
         p1_score = 0
         p2_score = 0
 
+		# Looping through all the pieces of Player One, and returning their respective evaluations
         for p in pieces_1:
             p1_score = p1_score + p.evaluate()
+		# Same thing for Player Two
         for p in pieces_2:
             p2_score = p2_score + p.evaluate()
 
+		# Giving an absolute value to a winning game state.
         if self.victory() == 1:
             p1_score = 999999
         elif self.victory() == 2:
             p2_score = 999999
 
-        # print(p1_score - p2_score)
+        # Returning the difference in the score.
         return p1_score - p2_score
 
     def successor(self):
+        """
+        Purpose:
+            Finds all possible game states which are availabe from the current game state.
+        Pre-Conditions:
+            N/A
+        Return:
+            :return: A list containing all possible games states available from the current one
+        """
 
         pieces = self.get_pieces()
         games = []
 
+		# Looping through all the pieces on the board, and finding all game states available to the current state
         for p in pieces:
             moves = p.get_moves()
             for move in moves:
@@ -161,8 +233,14 @@ class Game:
         return games
 
     def play(self):
-        global searchList
-
+        """
+        Purpose:
+            Runs the game until someone has won
+        Pre-Conditions:
+            N/A
+        Return:
+			N/A
+        """
         while True:
 
             if self.victory() == 1:
@@ -189,7 +267,14 @@ class Game:
                 self.select_move()
 
         if len(AI.searchList) > 0:
-            print("Average number of nodes searched: " + str((sum(AI.searchList)/len(AI.searchList))))
+            print("Average nodes searched: " + str((sum(AI.searchList)/len(AI.searchList))))
+            print("Average time taken: " + str((sum(AI.timeList)/len(AI.timeList))))
+            print("Total move time for AI: " + str(sum(AI.timeList)))
+
+            print("Average nodes searched: " + str((sum(AI.searchListWithoutAlpha)/len(AI.searchListWithoutAlpha))))
+            print("Average time taken: " + str((sum(AI.timeListWithoutAlpha)/len(AI.timeListWithoutAlpha))))
+            print("Total move time for AI: " + str(sum(AI.timeListWithoutAlpha)))
+
 
     def __str__(self):
         s = "Player " + str(self.player) + "\'s turn.\n\n"
@@ -209,12 +294,3 @@ class Game:
 
     def __ge__(self, other):
         return self.evaluate() >= other.evaluate()
-"""
-g1 = Game()
-g1.select_move(1, 1)
-print(g1)
-
-g2 = g1.copy()
-g2.select_move(1, 1)
-print(g1)
-print(g2)"""

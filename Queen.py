@@ -1,8 +1,24 @@
 from Board import Board
+##################################
+# By  : Carter Hill & Bryce Keeler
+# NSID: cgh418      & bpk802
+# Date: March 14, 2018
+# For : Assignment#2 - CMPT 317
+##################################
 
 class Queen:
 
     def __init__(self, board, x, y):
+        """
+        Purpose:
+			Initializes a Queen piece
+		Pre-Conditions:
+            :param board: The board object the piece will be placed on
+			:param x    : The x-coordinate of the piece
+			:param y    : The y-coordinate of the piece
+        Return:
+            N/A
+        """
 
         self.x = x
         self.y = x
@@ -12,7 +28,6 @@ class Queen:
         board.add(self, x, y)
 
     def copy(self, board):
-
         return Queen(board, int(self.x), int(self.y))
 
     def set_coordinates(self, x, y):
@@ -23,7 +38,14 @@ class Queen:
         return self.x, self.y
 
     def move(self, coor):
-
+        """
+        Purpose:
+			Moves the current piece to a specified coordinate
+		Pre-Conditions:
+            :param coor: A tuple describing the coordinates the piece will be moved to
+        Return:
+			N/A
+        """
         x = coor[0]
         y = coor[1]
         assert x >= 1 and x <= 5, "x must be in range [1, 5], x = " + str(x)
@@ -35,11 +57,10 @@ class Queen:
         self.board.add(self, self.x, self.y)
 
     def evaluate(self):
-        return 10 + abs(self.y-6)*3
+        return 10 + abs(self.y-6)*2
 
 
     def get_moves(self):
-
         """
         Purpose:
             Gets a list of coordinates that the Queen ca move to

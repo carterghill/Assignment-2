@@ -1,3 +1,10 @@
+##################################
+# By  : Carter Hill & Bryce Keeler
+# NSID: cgh418      & bpk802
+# Date: March 14, 2018
+# For : Assignment#2 - CMPT 317
+##################################
+
 from Board import Board
 
 class Wight:
@@ -16,10 +23,20 @@ class Wight:
         return Wight(board, int(self.x), int(self.y))
 
     def evaluate(self):
+        """
+        Purpose:
+			Provides a weighted value for the current wight piece.
+		Pre-Conditions:
+            N/A
+        Return:
+			Utility value for the current piece
+        """
 
+		# Variables which will Store the Queens coordinates
         x = 1
         y = 1
 
+		# Finding the queens coordinates
         for i in range(1, 6):
             for j in range(1, 6):
                 p = self.board.get_cell(i, j)
@@ -27,13 +44,14 @@ class Wight:
                     x = i
                     y = j
 
+		# Storing the distance from the current piece to the Queen
         x = abs(self.x - x)
         y = abs(self.y - y)
 
-        # Distance away from Queen
+		# Manhattan distance
         dis = x + y
 
-        # Value will be highest if you're distance of 2 from Queen
+        # Value will be highest if you're distance of 2 from Queenj. This values strategic positions surrounding the queen
         return (self.y+8 - abs(dis-2))*2
 
     def set_coordinates(self, x, y):
@@ -44,7 +62,14 @@ class Wight:
         return self.x, self.y
 
     def move(self, coor):
-
+        """
+        Purpose:
+			Moves the current piece to a specified coordinate
+		Pre-Conditions:
+            :param coor: A tuple describing the coordinates the piece will be moved to
+        Return:
+			N/A
+        """
         x = coor[0]
         y = coor[1]
         assert x >= 1 and x <= 5, "x must be in range [1, 5], x = " + str(x)
@@ -56,7 +81,6 @@ class Wight:
         self.board.add(self, self.x, self.y)
 
     def get_moves(self):
-
         """
         Purpose:
             Gets a list of coordinates that the Queen ca move to

@@ -1,3 +1,10 @@
+##################################
+# By  : Carter Hill & Bryce Keeler
+# NSID: cgh418      & bpk802
+# Date: March 14, 2018
+# For : Assignment#2 - CMPT 317
+##################################
+
 from Game import Game
 import sys
 
