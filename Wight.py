@@ -30,9 +30,11 @@ class Wight:
         x = abs(self.x - x)
         y = abs(self.y - y)
 
-        #print(x+y)
+        # Distance away from Queen
+        dis = x + y
 
-        return (self.y+8 - (x+y))
+        # Value will be highest if you're distance of 2 from Queen
+        return (self.y+8 - abs(dis-2))
 
     def set_coordinates(self, x, y):
         self.x = x

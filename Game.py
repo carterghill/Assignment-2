@@ -15,7 +15,7 @@ class Game:
             :param player1_is_ai: Whether or not player 1 is an AI
             :param player2_is_ai: Whether or not player 2 is an AI
         Return:
-            :return: list of moves
+            :return: A new game state
         """
 
         self.board = Board()        # The game board
